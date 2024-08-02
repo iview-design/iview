@@ -72,6 +72,14 @@
             }
         },
         computed: {
+            // 非右固定列数
+            notFixedRightColumnsCount() {
+                if (this.fixed == 'right') {
+                    return this.columns.filter(item => item.fixed != 'right').length
+                } else {
+                    return 0
+                }
+            },
             expandRender () {
                 let render = function () {
                     return '';
@@ -135,7 +143,7 @@
                         row,
                         column,
                         rowIndex,
-                        columnIndex
+                        columnIndex: column.fixed == 'right' ? (columnIndex + this.notFixedRightColumnsCount) : columnIndex
                     });
                     let rowspan = 1;
                     let colspan = 1;
